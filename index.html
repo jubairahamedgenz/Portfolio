@@ -127,7 +127,6 @@
   .stat .l{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--sub); margin-top:6px;}
   .edu-list{border-top:1px solid var(--line);}
   .edu-row{padding:16px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:20px;}
-  .edu-row .yr{font-family:var(--mono); font-size:11px; color:var(--rust); letter-spacing:.05em; white-space:nowrap;}
   .edu-row .q{font-size:14px; font-weight:500;}
   .edu-row .i{font-size:12px; color:var(--sub); margin-top:3px;}
   .edu-row .cg{font-family:var(--mono); font-size:11px; color:var(--sub); text-align:right; white-space:nowrap;}
@@ -156,7 +155,6 @@
   .skills-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:24px;}
 
   /* -- contact -- */
-  .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:60px;}
   .contact-links a{
     display:flex; justify-content:space-between; align-items:center; padding:16px 0;
     border-bottom:1px solid var(--line); font-family:var(--mono); font-size:14px;
@@ -234,13 +232,10 @@
   /* ============ fixed chrome (bottom) ============ */
   .chrome-bottom{
     position:fixed; bottom:0; left:0; width:100%; z-index:100;
-    padding:26px 64px; display:flex; justify-content:space-between; align-items:flex-end;
+    padding:26px 64px; display:flex; justify-content:flex-end; align-items:flex-end; gap:50px;
     pointer-events:none;
   }
   .chrome-bottom > *{pointer-events:auto;}
-  .meta-block{display:flex; gap:44px;}
-  .meta-block .m .lab{font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--sub);}
-  .meta-block .m .val{font-size:13px; margin-top:4px; font-weight:500;}
 
   .next-btn{display:flex; align-items:center; gap:14px; cursor:pointer;}
   .next-circle{
@@ -260,7 +255,7 @@
     #hero.panel{min-height:100vh; padding-top:130px; padding-bottom:50px;}
     #contact.panel{ padding-bottom:200px; }
     .social-rail{display:none;}
-    .about-grid, .contact-grid, .work-body{grid-template-columns:1fr; gap:28px;}
+    .about-grid, .work-body{grid-template-columns:1fr; gap:28px;}
     .cert-grid{grid-template-columns:1fr; gap:16px;}
     .exp-item{grid-template-columns:1fr; gap:8px;}
     .stat-row{flex-direction:column;}
@@ -270,7 +265,6 @@
     .nav-toggle{display:block;}
     .nav-brand span.full{display:inline;}
     .chrome-bottom{padding:16px 20px;}
-    .meta-block{gap:22px;}
   }
 </style>
 </head>
@@ -461,10 +455,6 @@
 </div>
 
 <div class="chrome-bottom">
-  <div class="meta-block">
-    <div class="m"><div class="lab">Version</div><div class="val">Portfolio-v4</div></div>
-    <div class="m"><div class="lab">Local Time</div><div class="val" id="localTime">Chennai, India —:—</div></div>
-  </div>
   <div class="next-btn" id="nextBtn">
     <div class="next-circle"><div class="dot"></div></div>
     <div class="next-label" id="nextLabel">Next section</div>
@@ -478,16 +468,6 @@
   let html='';
   for(let i=0;i<10;i++){ html += `<span>${tickerText}</span>`; }
   track.innerHTML = html;
-
-  /* live local time — Chennai (IST) */
-  function updateTime(){
-    const now = new Date();
-    const opts = { hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'Asia/Kolkata' };
-    const t = new Intl.DateTimeFormat('en-GB', opts).format(now);
-    document.getElementById('localTime').textContent = `Chennai, India ${t}`;
-  }
-  updateTime();
-  setInterval(updateTime, 15000);
 
   /* section order for "Next" button + arrow keys */
   const order = ['hero','journey','about','experience','research','certifications','contact'];
@@ -555,7 +535,6 @@
     const navH = topNav.offsetHeight;
     const totalOffset = tickerH + navH;
     navDrawer.style.top = totalOffset + 'px';
-    document.documentElement.style.setProperty('--top-offset', totalOffset + 'px');
     document.querySelectorAll('.panel').forEach(p=> p.style.scrollMarginTop = totalOffset + 'px');
   }
   window.addEventListener('resize', syncTopOffsets);
